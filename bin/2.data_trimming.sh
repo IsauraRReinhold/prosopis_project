@@ -24,10 +24,3 @@ echo ${i}
 
 done
 
-PCDT3-10b_1.fastq.gz
-PCDT3-10b_2.fastq.gz
-
-/home/irosas
-
-
-/projects/irosas/data/raw_data

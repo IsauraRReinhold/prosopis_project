@@ -1,0 +1,680 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={11DEGs.r},
+            pdfauthor={cris},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{11DEGs.r}
+\author{cris}
+\date{2022-04-18}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(edgeR)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: limma
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(pheatmap)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v tibble  3.1.6     v dplyr   1.0.8
+## v tidyr   1.2.0     v stringr 1.4.0
+## v readr   2.1.2     v forcats 0.5.1
+## v purrr   0.3.4
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{source}\NormalTok{(}\StringTok{"/home/cris/Documentos/EpiDiso/Disocactus_transcriptome/bin/dif_exp_functions.R"}\NormalTok{)}
+
+\CommentTok{#set workdir}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"~/Documentos/Prosopis_project/bin/"}\NormalTok{)}
+
+\CommentTok{#Charge data}
+\NormalTok{count_matrix<-}\KeywordTok{read.table}\NormalTok{(}\StringTok{"../out/count_matrix/prosopis_count_matrix.txt"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }
+  \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\CommentTok{#load metadata}
+\NormalTok{meta <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"../metadata/meta.txt"}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+
+\CommentTok{#change colnames}
+\KeywordTok{colnames}\NormalTok{(count_matrix) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Gene_id"}\NormalTok{,}\StringTok{"Chr"}\NormalTok{,}\StringTok{"Start"}\NormalTok{,}\StringTok{"End"}\NormalTok{,}\StringTok{"Strand"}\NormalTok{,}\StringTok{"Length"}\NormalTok{,}
+                            \StringTok{"Ghaf12DT_002_CGATGT_L007"}\NormalTok{,}\StringTok{"Ghaf2DT_005_ACAGTG_L007"}\NormalTok{,}
+                            \StringTok{"Ghaf4DT_006_GCCAAT_L007"}\NormalTok{,}\StringTok{"Ghaf6DT_007_CAGATC_L007"}\NormalTok{,}
+                            \StringTok{"Ghaf8DT_009_GATCAG_L007"}\NormalTok{,}\StringTok{"PCDT3.10b"}\NormalTok{,}\StringTok{"PCDT3.12"}\NormalTok{,}\StringTok{"PCDT3.2b"}\NormalTok{,}
+                            \StringTok{"PCDT3.4b"}\NormalTok{,}\StringTok{"PCDT3.6"}\NormalTok{,}\StringTok{"PCDT3.8"}\NormalTok{,}\StringTok{"PCDT4.10b"}\NormalTok{,}\StringTok{"PCDT5.4b"}\NormalTok{,}
+                            \StringTok{"PCDT5.8b"}\NormalTok{,}\StringTok{"PDT5_10"}\NormalTok{,}\StringTok{"PDT5_2"}\NormalTok{,}\StringTok{"PDT5_6"}\NormalTok{)}
+
+\CommentTok{#convert gen_id in the rownames  }
+\KeywordTok{rownames}\NormalTok{(count_matrix)<-count_matrix[,}\DecValTok{1}\NormalTok{]}
+
+\NormalTok{count_matrix<-count_matrix[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\CommentTok{#select only colums whith counts}
+\NormalTok{count_matrix<-count_matrix}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(., (}\DecValTok{6}\OperatorTok{:}\DecValTok{22}\NormalTok{))}
+
+\KeywordTok{class}\NormalTok{(count_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#explore matrix}
+\KeywordTok{names}\NormalTok{(count_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Ghaf12DT_002_CGATGT_L007" "Ghaf2DT_005_ACAGTG_L007" 
+##  [3] "Ghaf4DT_006_GCCAAT_L007"  "Ghaf6DT_007_CAGATC_L007" 
+##  [5] "Ghaf8DT_009_GATCAG_L007"  "PCDT3.10b"               
+##  [7] "PCDT3.12"                 "PCDT3.2b"                
+##  [9] "PCDT3.4b"                 "PCDT3.6"                 
+## [11] "PCDT3.8"                  "PCDT4.10b"               
+## [13] "PCDT5.4b"                 "PCDT5.8b"                
+## [15] "PDT5_10"                  "PDT5_2"                  
+## [17] "PDT5_6"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#reoder columns as meta data is }
+\NormalTok{col_order <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"PCDT3.2b"}\NormalTok{,}\StringTok{"PCDT3.4b"}\NormalTok{,}\StringTok{"PCDT3.6"}\NormalTok{, }\StringTok{"PCDT3.8"}\NormalTok{,                     }
+               \StringTok{"PCDT3.10b"}\NormalTok{,}\StringTok{"PCDT3.12"}\NormalTok{,}\StringTok{"Ghaf2DT_005_ACAGTG_L007"}\NormalTok{, }\StringTok{"Ghaf4DT_006_GCCAAT_L007"}\NormalTok{ ,     }
+               \StringTok{"Ghaf6DT_007_CAGATC_L007"}\NormalTok{,}\StringTok{"Ghaf8DT_009_GATCAG_L007"}\NormalTok{,}\StringTok{"Ghaf12DT_002_CGATGT_L007"}\NormalTok{,     }
+               \StringTok{"PCDT4.10b"}\NormalTok{,}\StringTok{"PCDT5.4b"}\NormalTok{,}\StringTok{"PCDT5.8b"}\NormalTok{,}\StringTok{"PDT5_10"}\NormalTok{, }\StringTok{"PDT5_2"}\NormalTok{,}\StringTok{"PDT5_6"}\NormalTok{)}
+
+\NormalTok{count_matrix<-}\StringTok{ }\NormalTok{count_matrix[, col_order]}
+
+\CommentTok{#filter data by cpm}
+\NormalTok{keep <-}\StringTok{ }\KeywordTok{rowSums}\NormalTok{(}\KeywordTok{cpm}\NormalTok{(count_matrix) }\OperatorTok{>=}\StringTok{ }\DecValTok{5}\NormalTok{) }\OperatorTok{>=}\DecValTok{2}
+\KeywordTok{table}\NormalTok{(keep)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## keep
+## FALSE  TRUE 
+## 54864 22354
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{count_matrix <-}\StringTok{ }\NormalTok{count_matrix[keep, ]}
+
+\CommentTok{#explore count matrix}
+\KeywordTok{colnames}\NormalTok{(count_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "PCDT3.2b"                 "PCDT3.4b"                
+##  [3] "PCDT3.6"                  "PCDT3.8"                 
+##  [5] "PCDT3.10b"                "PCDT3.12"                
+##  [7] "Ghaf2DT_005_ACAGTG_L007"  "Ghaf4DT_006_GCCAAT_L007" 
+##  [9] "Ghaf6DT_007_CAGATC_L007"  "Ghaf8DT_009_GATCAG_L007" 
+## [11] "Ghaf12DT_002_CGATGT_L007" "PCDT4.10b"               
+## [13] "PCDT5.4b"                 "PCDT5.8b"                
+## [15] "PDT5_10"                  "PDT5_2"                  
+## [17] "PDT5_6"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groups <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(count_matrix))}
+\KeywordTok{table}\NormalTok{(groups)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## groups
+## Ghaf12DT_002_CGATGT_L007  Ghaf2DT_005_ACAGTG_L007  Ghaf4DT_006_GCCAAT_L007 
+##                        1                        1                        1 
+##  Ghaf6DT_007_CAGATC_L007  Ghaf8DT_009_GATCAG_L007                PCDT3.10b 
+##                        1                        1                        1 
+##                 PCDT3.12                 PCDT3.2b                 PCDT3.4b 
+##                        1                        1                        1 
+##                  PCDT3.6                  PCDT3.8                PCDT4.10b 
+##                        1                        1                        1 
+##                 PCDT5.4b                 PCDT5.8b                  PDT5_10 
+##                        1                        1                        1 
+##                   PDT5_2                   PDT5_6 
+##                        1                        1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#create edgeR list}
+\NormalTok{edgeRlist <-}\StringTok{ }\KeywordTok{DGEList}\NormalTok{(}\DataTypeTok{counts =}\NormalTok{ count_matrix,}
+                     \DataTypeTok{group =}\NormalTok{ meta}\OperatorTok{$}\NormalTok{month.Treatment, }
+                     \DataTypeTok{genes =} \KeywordTok{rownames}\NormalTok{(count_matrix))}
+\KeywordTok{str}\NormalTok{(edgeRlist)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Formal class 'DGEList' [package "edgeR"] with 1 slot
+##   ..@ .Data:List of 3
+##   .. ..$ : int [1:22354, 1:17] 229 1920 2693 1275 1520 79 1096 755 154 143 ...
+##   .. .. ..- attr(*, "dimnames")=List of 2
+##   .. .. .. ..$ : chr [1:22354] "KCPC_00000005-RA" "KCPC_00000006-RA" "KCPC_00000013-RA" "KCPC_00000015-RA" ...
+##   .. .. .. ..$ : chr [1:17] "PCDT3.2b" "PCDT3.4b" "PCDT3.6" "PCDT3.8" ...
+##   .. ..$ :'data.frame':  17 obs. of  3 variables:
+##   .. .. ..$ group       : Factor w/ 6 levels "month_10","month_12",..: 3 4 5 6 1 2 3 4 5 6 ...
+##   .. .. ..$ lib.size    : num [1:17] 41879743 43124317 40559418 32842486 34102995 ...
+##   .. .. ..$ norm.factors: num [1:17] 1 1 1 1 1 1 1 1 1 1 ...
+##   .. ..$ :'data.frame':  22354 obs. of  1 variable:
+##   .. .. ..$ genes: chr [1:22354] "KCPC_00000005-RA" "KCPC_00000006-RA" "KCPC_00000013-RA" "KCPC_00000015-RA" ...
+##   ..$ names: chr [1:3] "counts" "samples" "genes"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Normalized count by TMM}
+\NormalTok{edgeRlist <-}\StringTok{ }\KeywordTok{calcNormFactors}\NormalTok{(edgeRlist, }\DataTypeTok{method =} \StringTok{"TMM"}\NormalTok{)}
+\NormalTok{edgeRlist}\OperatorTok{$}\NormalTok{samples}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                             group lib.size norm.factors
+## PCDT3.2b                  month_2 41879743    0.8944485
+## PCDT3.4b                  month_4 43124317    0.8330293
+## PCDT3.6                   month_6 40559418    1.2431947
+## PCDT3.8                   month_8 32842486    0.7856211
+## PCDT3.10b                month_10 34102995    0.7384695
+## PCDT3.12                 month_12 34887090    0.8875539
+## Ghaf2DT_005_ACAGTG_L007   month_2 30373184    1.2821889
+## Ghaf4DT_006_GCCAAT_L007   month_4 25640463    1.2275675
+## Ghaf6DT_007_CAGATC_L007   month_6 31010380    1.3678322
+## Ghaf8DT_009_GATCAG_L007   month_8 27172366    1.2617610
+## Ghaf12DT_002_CGATGT_L007 month_10 29775513    0.5684423
+## PCDT4.10b                month_12 38695465    1.0147384
+## PCDT5.4b                  month_2 44846973    1.0151217
+## PCDT5.8b                  month_4 37983556    1.1336470
+## PDT5_10                   month_6 35384768    1.0500525
+## PDT5_2                    month_8 33239856    0.8629483
+## PDT5_6                   month_10 40184553    1.2831142
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## Plot to evaluate the correct data normalization }
+\CommentTok{## Plot the results using absolute vs relative expression in each sample to check the correct normalization}
+
+\KeywordTok{pdf}\NormalTok{(}\StringTok{"../figures/MD_plots.pdf"}\NormalTok{, }\DataTypeTok{height =} \DecValTok{7}\NormalTok{, }\DataTypeTok{width =} \DecValTok{10}\NormalTok{)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)) }\CommentTok{##Generate a frame to store 6 plots in 2 rows and 3 columns}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{17}\NormalTok{)) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{plotMD}\NormalTok{(}\KeywordTok{cpm}\NormalTok{(edgeRlist, }\DataTypeTok{log =}\NormalTok{ T), }\DataTypeTok{column =}\NormalTok{ i))}
+  \KeywordTok{grid}\NormalTok{(}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+  \KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Heatmap to explor data}
+\CommentTok{#calculating the correlation (Pearson) that exists between the samples}
+\KeywordTok{pdf}\NormalTok{(}\StringTok{"../figures/corr_rep_plots.pdf"}\NormalTok{, }\DataTypeTok{height =} \DecValTok{7}\NormalTok{, }\DataTypeTok{width =} \DecValTok{10}\NormalTok{)}
+\NormalTok{cormat <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(}\KeywordTok{cpm}\NormalTok{(edgeRlist}\OperatorTok{$}\NormalTok{counts, }\DataTypeTok{log =}\NormalTok{ T))}
+\KeywordTok{pheatmap}\NormalTok{(cormat, }\DataTypeTok{border_color =} \OtherTok{NA}\NormalTok{, }\DataTypeTok{main =} \StringTok{"P. cineraria correlation of replicates"}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#In order to check the correct normalization of the samples we repeat the boxplot}
+\CommentTok{# Get log2 counts per million}
+\KeywordTok{jpeg}\NormalTok{(}\StringTok{"../figures/boxplot_logCPMs_norm.jpg"}\NormalTok{)}
+\NormalTok{logcounts <-}\StringTok{ }\KeywordTok{cpm}\NormalTok{(edgeRlist,}\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# Check distributions of samples using boxplots}
+\KeywordTok{boxplot}\NormalTok{(logcounts, }\DataTypeTok{xlab=}\StringTok{""}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Log2 counts per million"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{2}\NormalTok{)}
+\CommentTok{# Let's add a blue horizontal line that corresponds to the median logCPM}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\KeywordTok{median}\NormalTok{(logcounts),}\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\KeywordTok{title}\NormalTok{(}\StringTok{"transformed logCPMs"}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Experiimental matrix design}
+\NormalTok{design <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\DecValTok{0}\OperatorTok{+}\NormalTok{edgeRlist}\OperatorTok{$}\NormalTok{samples}\OperatorTok{$}\NormalTok{group)}
+\NormalTok{design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    edgeRlist$samples$groupmonth_10 edgeRlist$samples$groupmonth_12
+## 1                                0                               0
+## 2                                0                               0
+## 3                                0                               0
+## 4                                0                               0
+## 5                                1                               0
+## 6                                0                               1
+## 7                                0                               0
+## 8                                0                               0
+## 9                                0                               0
+## 10                               0                               0
+## 11                               1                               0
+## 12                               0                               1
+## 13                               0                               0
+## 14                               0                               0
+## 15                               0                               0
+## 16                               0                               0
+## 17                               1                               0
+##    edgeRlist$samples$groupmonth_2 edgeRlist$samples$groupmonth_4
+## 1                               1                              0
+## 2                               0                              1
+## 3                               0                              0
+## 4                               0                              0
+## 5                               0                              0
+## 6                               0                              0
+## 7                               1                              0
+## 8                               0                              1
+## 9                               0                              0
+## 10                              0                              0
+## 11                              0                              0
+## 12                              0                              0
+## 13                              1                              0
+## 14                              0                              1
+## 15                              0                              0
+## 16                              0                              0
+## 17                              0                              0
+##    edgeRlist$samples$groupmonth_6 edgeRlist$samples$groupmonth_8
+## 1                               0                              0
+## 2                               0                              0
+## 3                               1                              0
+## 4                               0                              1
+## 5                               0                              0
+## 6                               0                              0
+## 7                               0                              0
+## 8                               0                              0
+## 9                               1                              0
+## 10                              0                              1
+## 11                              0                              0
+## 12                              0                              0
+## 13                              0                              0
+## 14                              0                              0
+## 15                              1                              0
+## 16                              0                              1
+## 17                              0                              0
+## attr(,"assign")
+## [1] 1 1 1 1 1 1
+## attr(,"contrasts")
+## attr(,"contrasts")$`edgeRlist$samples$group`
+## [1] "contr.treatment"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##the term ~0 tells the function not to include a column of intersections and only include as many columns as groups in our experimental design}
+\KeywordTok{colnames}\NormalTok{(design) <-}\StringTok{ }\KeywordTok{levels}\NormalTok{(edgeRlist}\OperatorTok{$}\NormalTok{samples}\OperatorTok{$}\NormalTok{group)}
+
+\CommentTok{#explore design}
+\NormalTok{design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    month_10 month_12 month_2 month_4 month_6 month_8
+## 1         0        0       1       0       0       0
+## 2         0        0       0       1       0       0
+## 3         0        0       0       0       1       0
+## 4         0        0       0       0       0       1
+## 5         1        0       0       0       0       0
+## 6         0        1       0       0       0       0
+## 7         0        0       1       0       0       0
+## 8         0        0       0       1       0       0
+## 9         0        0       0       0       1       0
+## 10        0        0       0       0       0       1
+## 11        1        0       0       0       0       0
+## 12        0        1       0       0       0       0
+## 13        0        0       1       0       0       0
+## 14        0        0       0       1       0       0
+## 15        0        0       0       0       1       0
+## 16        0        0       0       0       0       1
+## 17        1        0       0       0       0       0
+## attr(,"assign")
+## [1] 1 1 1 1 1 1
+## attr(,"contrasts")
+## attr(,"contrasts")$`edgeRlist$samples$group`
+## [1] "contr.treatment"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#calculate data dispesion}
+\KeywordTok{jpeg}\NormalTok{(}\StringTok{"../figures/data_dispersion.jpg"}\NormalTok{)}
+\NormalTok{edgeRlist <-}\StringTok{ }\KeywordTok{estimateDisp}\NormalTok{(edgeRlist, }\DataTypeTok{design =}\NormalTok{ design, }\DataTypeTok{robust =}\NormalTok{ T)}
+\KeywordTok{plotBCV}\NormalTok{(edgeRlist)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#estimation of QL dispersions}
+\CommentTok{#Data must fit a negative bi-nominal linear model. For this, the glmQLfit function will be used with which there is a more robust control of the error}
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{glmQLFit}\NormalTok{(edgeRlist, design, }\DataTypeTok{robust=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(fit}\OperatorTok{$}\NormalTok{coefficients)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    month_10   month_12    month_2    month_4    month_6
+## KCPC_00000005-RA -12.230858 -12.049787 -12.347226 -12.246639 -12.418340
+## KCPC_00000006-RA  -9.992375  -9.838976 -10.000756  -9.977719 -10.154735
+## KCPC_00000013-RA  -9.790987  -9.651588  -9.376311  -9.215017  -9.431225
+## KCPC_00000015-RA  -9.649078  -9.953982  -9.973272 -10.068398  -9.965221
+## KCPC_00000019-RA -10.368387 -10.275671  -9.959031 -10.409000 -10.292389
+## KCPC_00000020-RA -11.460259 -12.564344 -12.029589 -11.988838 -11.526421
+##                     month_8
+## KCPC_00000005-RA -12.313240
+## KCPC_00000006-RA -10.006816
+## KCPC_00000013-RA  -9.679837
+## KCPC_00000015-RA  -9.804698
+## KCPC_00000019-RA -10.282494
+## KCPC_00000020-RA -11.507426
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Plot QL dispersion  using fit object}
+\KeywordTok{jpeg}\NormalTok{(}\StringTok{"../figures/QL_disp.jpg"}\NormalTok{)}
+\KeywordTok{plotQLDisp}\NormalTok{(fit, }\DataTypeTok{main =} \StringTok{" Quasi Likelihood dispersion in P.cinerase"}\NormalTok{)}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Contrast matrix for 3 comparisons }
+\CommentTok{#Since we are interested in differences between groups, we need to specify which comparisons we want to test.}
+\NormalTok{contrast_matrix <-}\StringTok{ }\KeywordTok{makeContrasts}\NormalTok{(}
+  \StringTok{"PC_2vsPC_4"}\NormalTok{ =}\StringTok{ "month_2 - month_4"}\NormalTok{,}
+  \StringTok{"PC_4vsPC_6"}\NormalTok{ =}\StringTok{ "month_4 - month_6"}\NormalTok{, }
+  \StringTok{"PC_6vsPC_8"}\NormalTok{ =}\StringTok{ "month_6 - month_8"}\NormalTok{,}
+  \StringTok{"PC_8vsPC_10"}\NormalTok{ =}\StringTok{ "month_8 - month_10"}\NormalTok{,}\DataTypeTok{levels=}\NormalTok{design)}
+
+
+\NormalTok{contrast_matrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Contrasts
+## Levels     PC_2vsPC_4 PC_4vsPC_6 PC_6vsPC_8 PC_8vsPC_10
+##   month_10          0          0          0          -1
+##   month_12          0          0          0           0
+##   month_2           1          0          0           0
+##   month_4          -1          1          0           0
+##   month_6           0         -1          1           0
+##   month_8           0          0         -1           1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Create the object contr_leves}
+\NormalTok{contr_levels<-}\KeywordTok{attributes}\NormalTok{(contrast_matrix)}\OperatorTok{$}\NormalTok{dimnames}\OperatorTok{$}\NormalTok{Contrasts}
+
+\CommentTok{#Adjust data to Binomial (BN) method and generate volcano plots for every comparisson}
+\KeywordTok{pdf}\NormalTok{(}\StringTok{"../figures/prosopis_volcanos.pdf"}\NormalTok{, }\DataTypeTok{height =} \DecValTok{7}\NormalTok{, }\DataTypeTok{width =} \DecValTok{10}\NormalTok{)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)) }\CommentTok{##Generate a frame to store 3 plots in 2 rows and 3 columns}
+\NormalTok{dif_exp_results<-}\KeywordTok{data.frame}\NormalTok{() }\CommentTok{#Empty data frame}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{)) \{}
+\NormalTok{  qlf.BvsA.lfc1 <-}\StringTok{ }\KeywordTok{glmTreat}\NormalTok{(fit, }\CommentTok{##Object in list form with data fitted to a negative bi-nominal model}
+                            \DataTypeTok{contrast =}\NormalTok{ contrast_matrix[, i], }
+                            \DataTypeTok{lfc =} \DecValTok{1}\NormalTok{)}
+  \CommentTok{##We obtain the SDRs with an expression other than 1, p value less than 0.05, correcting the p value by the Benjamini-Hochberg method}
+\NormalTok{  deg.BvsA.lfc1 <-}\StringTok{ }\KeywordTok{decideTestsDGE}\NormalTok{(qlf.BvsA.lfc1, }\DataTypeTok{p.value =} \FloatTok{0.05}\NormalTok{, }\DataTypeTok{adjust.method =} \StringTok{"BH"}\NormalTok{, }\DataTypeTok{lfc =} \DecValTok{1}\NormalTok{)}
+  \KeywordTok{table}\NormalTok{(deg.BvsA.lfc1)}
+  \CommentTok{#select the genes that statistically have | lfc | > 1 and strengthen our results}
+\NormalTok{  DEG.BvsA.lfc1 <-}\StringTok{ }\KeywordTok{DEGResults}\NormalTok{(qlf.BvsA.lfc1)}
+\NormalTok{  DEG.BvsA.lfc1 <-}\StringTok{ }\KeywordTok{edgeResults}\NormalTok{(DEG.BvsA.lfc1, }\DataTypeTok{logfc =} \DecValTok{1}\NormalTok{, }\DataTypeTok{padj =} \FloatTok{0.05}\NormalTok{)}
+\NormalTok{  comparacion<-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{comparacion =} \KeywordTok{rep}\NormalTok{(contr_levels[i], }\DataTypeTok{times =} \KeywordTok{nrow}\NormalTok{(DEG.BvsA.lfc1)))}
+\NormalTok{  DEG.BvsA.lfc1 <-}\KeywordTok{cbind}\NormalTok{(comparacion, DEG.BvsA.lfc1)}
+\NormalTok{  dif_exp_results<-}\KeywordTok{rbind}\NormalTok{(dif_exp_results, DEG.BvsA.lfc1)}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{volcano_edgeR}\NormalTok{(DEG.BvsA.lfc1, }\DataTypeTok{lfc =} \DecValTok{1}\NormalTok{, }\DataTypeTok{padj =} \FloatTok{0.05}\NormalTok{) }\OperatorTok{+}\StringTok{ }\CommentTok{#print volcano_plots}
+\StringTok{          }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =}\NormalTok{ contr_levels[i]) }\OperatorTok{+}\StringTok{ }\CommentTok{#labs of comparissons}
+\StringTok{          }\KeywordTok{xlim}\NormalTok{(}\OperatorTok{-}\DecValTok{15}\NormalTok{, }\DecValTok{15}\NormalTok{) }\OperatorTok{+}
+\StringTok{          }\KeywordTok{ylim}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+  
+\NormalTok{\}}
+\KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   3
+\end{verbatim}
+
+\end{document}
